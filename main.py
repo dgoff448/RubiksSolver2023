@@ -4,6 +4,7 @@ from typing import Optional
 from typing import Sequence
 
 import createCells
+import Cube
 
 # Argparse Tutorial (https://www.youtube.com/watch?v=-Sgw-6a1HjU)
 def main(argv: Optional[Sequence[str]] = None) -> int:
@@ -14,7 +15,9 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     args = parser.parse_args(argv)
     # pprint.pprint(vars(args))
 
-    cells = createCells.createCells(vars(args)['filename'])     # list of Cell Objects
+    cube = Cube.Cube(createCells.createCells(vars(args)['filename']))     # cube contains list of Cell Objects
+
+
 
     return 0
 

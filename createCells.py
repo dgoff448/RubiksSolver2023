@@ -1,4 +1,4 @@
-import cell
+import Cell
 
 cornerConnections = [
     [1, 12, 25],
@@ -26,7 +26,7 @@ edgeConnections = [
     [33, 40],
 ]
 
-def createCells(filename: str) -> list[cell.Cell]:
+def createCells(filename: str) -> list[Cell.Cell]:
     rawCells = [""] * 55
     cells = [""] * 55
 
@@ -51,7 +51,7 @@ def createCells(filename: str) -> list[cell.Cell]:
         else:
             faceColor = 'Y'
         
-        cells[i] = cell.Cell(i, rawCells[i], faceColor)
+        cells[i] = Cell.Cell(i, rawCells[i], faceColor)
 
 
 
@@ -64,13 +64,6 @@ def createCells(filename: str) -> list[cell.Cell]:
             tempCC = cc.pop(i)
             cell0 = cells[tempCC]
             cell0.setConnections([cells[cc[0]], cells[cc[1]]])
-            cc.insert(i, tempCC)
-
-
-    for c in cells:
-        print(c)
-
-    
-
+            cc.insert(i, tempCC)    
 
     return cells
