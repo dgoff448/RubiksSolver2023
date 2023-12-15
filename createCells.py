@@ -36,7 +36,7 @@ def createCells(filename: str) -> list[cell.Cell]:
             rawCells[i+1] = lines[i].strip()
     f.close()
 
-    placeNum = 1
+
     for i in range(1, len(rawCells)):
         if i <= 9:
             faceColor = 'W'
@@ -51,12 +51,8 @@ def createCells(filename: str) -> list[cell.Cell]:
         else:
             faceColor = 'Y'
         
-        cells[i] = cell.Cell(placeNum, rawCells[i], faceColor)
+        cells[i] = cell.Cell(i, rawCells[i], faceColor)
 
-        if placeNum + 1 != 10:
-            placeNum += 1
-        else:
-            placeNum = 1
 
 
     for ec in edgeConnections:
