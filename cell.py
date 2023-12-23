@@ -27,5 +27,7 @@ class Cell:
         self.findActCell()
 
     def __str__(self):
-        return f"curCell: {self.curCell}, actCell: {self.actCell}"
+        # return f"curCell: {self.curCell}, actCell: {self.actCell}"
+        return str(self.curCell)
+    
         

@@ -1,99 +1,359 @@
 class Cube:
-    def __init__(self, cells):
+    def __init__(self, cells: list):
         self.cells = cells
     
-    def swap(self, a: int, b: int, c: int, d: int):
+    # trades slice a to b with slice c to d
+    def trade(self, a: int, b: int, c: int, d: int):
         if a < c and b < d:
             arr = self.cells
-            s1 = arr[0:a]
+            s1 = arr[:a]
             s2 = arr[a:b]
             s3 = arr[b:c]
             s4 = arr[c:d]
-            s5 = arr[d:len(arr)]
+            s5 = arr[d:]
         else:
-            s1 = arr[0:c]
+            s1 = arr[:c]
             s2 = arr[c:d]
             s3 = arr[d:a]
             s4 = arr[a:b]
-            s5 = arr[b:len(arr)]
+            s5 = arr[b:]
         
         # print(s1, s2, s3, s4, s5)
         self.cells = s1 + s4 + s3 + s2 + s5
     
-    def push(a, b, c, d):
-        if a < c and b < d:
-            s1 = arr[0:a]
-            s2 = arr[a:b]
-            s3 = arr[b:c]
-            s4 = arr[c:d]
-            s5 = arr[d:len(arr)]
+    def swop(self, a:int, b:int, c:int, d:int, cellSlice=[]):
+        arr = self.cells
+        if cellSlice == []:
+            # Take a slice of the array from a to b,
+            # swap it with slice c to d,
+            # pop the slice c to d.
+            if a < c and b < d:
+                s1 = arr[:a]
+                s2 = arr[a:b]
+                s3 = arr[b:c]
+                s4 = arr[c:d]
+                s5 = arr[d:]
 
-            print(s1, s2, s3, s4, s5)
-            self.cells = s1 + [-1]*len(s2) + s3 + s2 + s5
-            return s4
+                # print(s1, s2, s3, s4, s5)
+                self.cells = s1 + [-1]*len(s2) + s3 + s2 + s5
+                return s4
+            else:
+                s1 = arr[:c]
+                s2 = arr[c:d]
+                s3 = arr[d:a]
+                s4 = arr[a:b]
+                s5 = arr[b:]
+
+                # print(s1, s2, s3, s4, s5)
+                self.cells = s1 + s4 + s3 + [-1]*len(s4) + s5
+                return s2
         else:
-            s1 = arr[0:c]
-            s2 = arr[c:d]
-            s3 = arr[d:a]
-            s4 = arr[a:b]
-            s5 = arr[b:len(arr)]
-
-            print(s1, s2, s3, s4, s5)
-            self.cells = s1 + s4 + s3 + [-1]*len(s4) + s5
+            # swap cellSlice with slice a to b,
+            # pop slice a to b
+            s1 = arr[:a]
+            s2 = arr[a:b]
+            s3 = arr[b:]
+            self.cells = s1 + cellSlice + s3
             return s2
 
+    def breakTrade(self, a:int, b:int, c:int, d:int, cellSlice:list):
+        slice0, slice1 = cellSlice[:2], cellSlice[2:]
+        arr = self.cells
+        s1 = arr[:a]
+        s2 =  arr[a:b]
+        s3 = arr[b:c]
+        s4 = arr[c:d]
+        s5 = arr[d:]
+
+        self.cells = s1 + slice1 + s3 + slice0 + s5
+        return s4 + s2
+
+    def checkMove(self, moveType:str, arr:list):
+        if arr != [-1, -1, -1]:
+            print(self)
+            raise(Exception(f"Error: {moveType} didn't end with [-1, -1, -1]!"))
 
     def white_CW(self):
-        self.swap(1, 7, 7, 9) # rotating white cells CW
-        self.swap()
+        self.trade(1, 7, 7, 9) # rotating white cells CW
+        
+        blue = [self.cells[12], self.cells[13], self.cells[14]]
+        self.cells[12], self.cells[13], self.cells[14] = -1, -1, -1
+
+        red = [self.cells[23], self.cells[24], self.cells[25]]
+        self.cells[23], self.cells[24], self.cells[25] = blue[0], blue[1], blue[2]
+
+        green = [self.cells[28], self.cells[34], self.cells[35]]
+        self.cells[28], self.cells[34], self.cells[35] = red[2], red[0], red[1]
+
+        orange = [self.cells[37], self.cells[38], self.cells[39]]
+        self.cells[37], self.cells[38], self.cells[39] = green[1], green[2], green[0]
+
+        self.cells[12], self.cells[13], self.cells[14] = orange[0], orange[1], orange[2]
 
     def white_CCW(self):
-        self.swap(1, 3, 3, 9) # rotating white cells CCW
+        self.trade(1, 3, 3, 9) # rotating white cells CCW
+        
+        blue = [self.cells[12], self.cells[13], self.cells[14]]
+        self.cells[12], self.cells[13], self.cells[14] = -1, -1, -1
 
+        orange = [self.cells[37], self.cells[38], self.cells[39]]
+        self.cells[37], self.cells[38], self.cells[39] = blue[0], blue[1], blue[2]
+
+        green = [self.cells[28], self.cells[34], self.cells[35]]
+        self.cells[28], self.cells[34], self.cells[35] = orange[2], orange[0], orange[1]
+
+        red = [self.cells[23], self.cells[24], self.cells[25]]
+        self.cells[23], self.cells[24], self.cells[25] = green[1], green[2], green[0]
+
+        self.cells[12], self.cells[13], self.cells[14] = red[0], red[1], red[2]
+        
     def white_Dub(self):
-        self.swap(1, 5, 5, 9) # rotating white cells Double
+        self.trade(1, 5, 5, 9) # rotating white cells Double
+
+        blue = [self.cells[12], self.cells[13], self.cells[14]]
+        green = [self.cells[28], self.cells[34], self.cells[35]]
+        self.cells[12], self.cells[13], self.cells[14] = green[1], green[2], green[0]
+        self.cells[28], self.cells[34], self.cells[35] = blue[2], blue[0], blue[1]
+
+        red = [self.cells[23], self.cells[24], self.cells[25]]
+        orange = [self.cells[37], self.cells[38], self.cells[39]]
+        self.cells[23], self.cells[24], self.cells[25] = orange[0], orange[1], orange[2]
+        self.cells[37], self.cells[38], self.cells[39] = red[0], red[1], red[2]
 
     def blue_CW(self):
-        pass 
+        self.trade(10, 16, 16, 18) # rotating blue cells CW
+
+        white = [self.cells[1], self.cells[7], self.cells[8]]
+        self.cells[1], self.cells[7], self.cells[8] = -1, -1, -1
+        
+        orange = [self.cells[37], self.cells[43], self.cells[44]]
+        self.cells[37], self.cells[43], self.cells[44] = white[0], white[1], white[2]
+
+        yellow = [self.cells[46], self.cells[52], self.cells[53]]
+        self.cells[46], self.cells[52], self.cells[53] = orange[0], orange[1], orange[2]
+
+        red = [self.cells[19], self.cells[25], self.cells[26]]
+        self.cells[19], self.cells[25], self.cells[26] = yellow[0], yellow[1], yellow[2]
+
+        self.cells[1], self.cells[7], self.cells[8] = red[0], red[1], red[2]
 
     def blue_CCW(self):
-        pass 
+        self.trade(10, 12, 12, 18) # rotating blue cells CCW
+
+        white = [self.cells[1], self.cells[7], self.cells[8]]
+        self.cells[1], self.cells[7], self.cells[8] = -1, -1, -1
+
+        red = [self.cells[19], self.cells[25], self.cells[26]]
+        self.cells[19], self.cells[25], self.cells[26] = white[0], white[1], white[2]
+
+        yellow = [self.cells[46], self.cells[52], self.cells[53]]
+        self.cells[46], self.cells[52], self.cells[53] = red[0], red[1], red[2]
+
+        orange = [self.cells[37], self.cells[43], self.cells[44]]
+        self.cells[37], self.cells[43], self.cells[44] = yellow[0], yellow[1], yellow[2]
+
+        self.cells[1], self.cells[7], self.cells[8] = orange[0], orange[1], orange[2]
 
     def blue_Dub(self):
-        pass 
-    
-    def red_CW(self):
-        pass 
+        self.trade(10, 14, 14, 18) # rotating blue cells Dub
 
+        white = [self.cells[1], self.cells[7], self.cells[8]]
+        yellow = [self.cells[46], self.cells[52], self.cells[53]]
+        self.cells[46], self.cells[52], self.cells[53] = white[0], white[1], white[2]
+        self.cells[1], self.cells[7], self.cells[8] = yellow[0], yellow[1], yellow[2] 
+
+        red = [self.cells[19], self.cells[25], self.cells[26]]
+        orange = [self.cells[37], self.cells[43], self.cells[44]]
+        self.cells[19], self.cells[25], self.cells[26] = orange[0], orange[1], orange[2]
+        self.cells[37], self.cells[43], self.cells[44] = red[0], red[1], red[2]
+
+    def red_CW(self):
+        self.trade(19, 25, 25, 27)
+
+        white = [self.cells[1], self.cells[2], self.cells[3]]
+        self.cells[1], self.cells[2], self.cells[3] = -1, -1, -1
+
+        blue = [self.cells[10], self.cells[11], self.cells[12]]
+        self.cells[10], self.cells[11], self.cells[12] = white[0], white[1], white[2]
+
+        yellow = [self.cells[50], self.cells[51], self.cells[52]]
+        self.cells[50], self.cells[51], self.cells[52] = blue[0], blue[1], blue[2]
+
+        green = [self.cells[28], self.cells[29], self.cells[30]]
+        self.cells[28], self.cells[29], self.cells[30] = yellow[0], yellow[1], yellow[2]
+
+        self.cells[1], self.cells[2], self.cells[3] = green[0], green[1], green[2]
+        
     def red_CCW(self):
-        pass 
+        self.trade(19, 21, 21, 27)
+
+        white = [self.cells[1], self.cells[2], self.cells[3]]
+        self.cells[1], self.cells[2], self.cells[3] = -1, -1, -1
+
+        green = [self.cells[28], self.cells[29], self.cells[30]]
+        self.cells[28], self.cells[29], self.cells[30] = white[0], white[1], white[2]
+
+        yellow = [self.cells[50], self.cells[51], self.cells[52]]
+        self.cells[50], self.cells[51], self.cells[52] = green[0], green[1], green[2]
+
+        blue = [self.cells[10], self.cells[11], self.cells[12]]
+        self.cells[10], self.cells[11], self.cells[12] = yellow[0], yellow[1], yellow[2]
+
+        self.cells[1], self.cells[2], self.cells[3] = blue[0], blue[1], blue[2]
 
     def red_Dub(self):
-        pass 
+        self.trade(19, 23, 23, 27)
+
+        white = [self.cells[1], self.cells[2], self.cells[3]]
+        yellow = [self.cells[50], self.cells[51], self.cells[52]]
+        self.cells[1], self.cells[2], self.cells[3] = yellow[0], yellow[1], yellow[2]
+        self.cells[50], self.cells[51], self.cells[52] = white[0], white[1], white[2]
+
+        blue = [self.cells[10], self.cells[11], self.cells[12]]
+        green = [self.cells[28], self.cells[29], self.cells[30]]
+        self.cells[10], self.cells[11], self.cells[12] = green[0], green[1], green[2]
+        self.cells[28], self.cells[29], self.cells[30] = blue[0], blue[1], blue[2]
 
     def green_CW(self):
-        pass 
+        self.trade(28, 34, 34, 36)
 
+        white = [self.cells[3], self.cells[4], self.cells[5]]
+        self.cells[3], self.cells[4], self.cells[5] = -1, -1, -1
+
+        red = [self.cells[21], self.cells[22], self.cells[23]]
+        self.cells[21], self.cells[22], self.cells[23] = white[0], white[1], white[2]
+
+        yellow = [self.cells[48], self.cells[49], self.cells[50]]
+        self.cells[48], self.cells[49], self.cells[50] = red[0], red[1], red[2]
+
+        orange = [self.cells[39], self.cells[40], self.cells[41]]
+        self.cells[39], self.cells[40], self.cells[41] = yellow[0], yellow[1], yellow[2]
+
+        self.cells[3], self.cells[4], self.cells[5] = orange[0], orange[1], orange[2]
+        
     def green_CCW(self):
-        pass 
+        self.trade(28, 30, 30, 36)
+
+        white = [self.cells[3], self.cells[4], self.cells[5]]
+        self.cells[3], self.cells[4], self.cells[5] = -1, -1, -1
+
+        orange = [self.cells[39], self.cells[40], self.cells[41]]
+        self.cells[39], self.cells[40], self.cells[41] = white[0], white[1], white[2]
+
+        yellow = [self.cells[48], self.cells[49], self.cells[50]]
+        self.cells[48], self.cells[49], self.cells[50] = orange[0], orange[1], orange[2]
+
+        red = [self.cells[21], self.cells[22], self.cells[23]]
+        self.cells[21], self.cells[22], self.cells[23] = yellow[0], yellow[1], yellow[2]
+
+        self.cells[3], self.cells[4], self.cells[5] = red[0], red[1], red[2]
 
     def green_Dub(self):
-        pass 
+        self.trade(28, 32, 32, 36)
+
+        white = [self.cells[3], self.cells[4], self.cells[5]]
+        yellow = [self.cells[48], self.cells[49], self.cells[50]]
+        self.cells[3], self.cells[4], self.cells[5] = yellow[0], yellow[1], yellow[2]
+        self.cells[48], self.cells[49], self.cells[50] = white[0], white[1], white[2]
+
+        red = [self.cells[21], self.cells[22], self.cells[23]]
+        orange = [self.cells[39], self.cells[40], self.cells[41]]
+        self.cells[21], self.cells[22], self.cells[23] = orange[0], orange[1], orange[2]
+        self.cells[39], self.cells[40], self.cells[41] = red[0], red[1], red[2]
 
     def orange_CW(self):
-        pass 
+        self.trade(37, 43, 43, 45)
+
+        white = [self.cells[5], self.cells[6], self.cells[7]]
+        self.cells[5], self.cells[6], self.cells[7] = -1, -1, -1
+
+        green = [self.cells[32], self.cells[33], self.cells[34]]
+        self.cells[32], self.cells[33], self.cells[34] = white[0], white[1], white[2]
+
+        yellow = [self.cells[46], self.cells[47], self.cells[48]]
+        self.cells[46], self.cells[47], self.cells[48] = green[0], green[1], green[2]
+
+        blue = [self.cells[14], self.cells[15], self.cells[16]]
+        self.cells[14], self.cells[15], self.cells[16] = yellow[0], yellow[1], yellow[2]
+
+        self.cells[5], self.cells[6], self.cells[7] = blue[0], blue[1], blue[2]
 
     def orange_CCW(self):
-        pass 
+        self.trade(37, 39, 39, 45)
+
+        white = [self.cells[5], self.cells[6], self.cells[7]]
+        self.cells[5], self.cells[6], self.cells[7] = -1, -1, -1
+
+        blue = [self.cells[14], self.cells[15], self.cells[16]]
+        self.cells[14], self.cells[15], self.cells[16] = white[0], white[1], white[2]
+
+        yellow = [self.cells[46], self.cells[47], self.cells[48]]
+        self.cells[46], self.cells[47], self.cells[48] = blue[0], blue[1], blue[2]
+
+        green = [self.cells[32], self.cells[33], self.cells[34]]
+        self.cells[32], self.cells[33], self.cells[34] = yellow[0], yellow[1], yellow[2]
+
+        self.cells[5], self.cells[6], self.cells[7] = green[0], green[1], green[2]
 
     def orange_Dub(self):
-        pass 
+        self.trade(37, 41, 41, 45)
+
+        white = [self.cells[5], self.cells[6], self.cells[7]]
+        yellow = [self.cells[46], self.cells[47], self.cells[48]]
+        self.cells[5], self.cells[6], self.cells[7] = yellow[0], yellow[1], yellow[2]
+        self.cells[46], self.cells[47], self.cells[48] = white[0], white[1], white[2]
+
+        blue = [self.cells[14], self.cells[15], self.cells[16]]
+        green = [self.cells[32], self.cells[33], self.cells[34]]
+        self.cells[14], self.cells[15], self.cells[16] = green[0], green[1], green[2]
+        self.cells[32], self.cells[33], self.cells[34] = blue[0], blue[1], blue[2]
 
     def yellow_CW(self):
-        pass 
+        self.trade(46, 52, 52, 54)
+
+        blue = [self.cells[10], self.cells[16], self.cells[17]]
+        self.cells[10], self.cells[16], self.cells[17] = -1, -1, -1
+
+        orange = [self.cells[41], self.cells[42], self.cells[43]]
+        self.cells[41], self.cells[42], self.cells[43] = blue[1], blue[2], blue[0]
+
+        green = [self.cells[30], self.cells[31], self.cells[32]]
+        self.cells[30], self.cells[31], self.cells[32] = orange[0], orange[1], orange[2]
+
+        red = [self.cells[19], self.cells[20], self.cells[21]]
+        self.cells[19], self.cells[20], self.cells[21] = green[0], green[1], green[2]
+
+        self.cells[10], self.cells[16], self.cells[17] = red[2], red[0], red[1]
 
     def yellow_CCW(self):
-        pass 
+        self.trade(46, 48, 48, 54)
+
+        blue = [self.cells[10], self.cells[16], self.cells[17]]
+        self.cells[10], self.cells[16], self.cells[17] = -1, -1, -1
+
+        red = [self.cells[19], self.cells[20], self.cells[21]]
+        self.cells[19], self.cells[20], self.cells[21] = blue[1], blue[2], blue[0]
+
+        green = [self.cells[30], self.cells[31], self.cells[32]]
+        self.cells[30], self.cells[31], self.cells[32] = red[0], red[1], red[2]
+
+        orange = [self.cells[41], self.cells[42], self.cells[43]]
+        self.cells[41], self.cells[42], self.cells[43] = green[0], green[1], green[2]
+
+        self.cells[10], self.cells[16], self.cells[17] = orange[2], orange[0], orange[1]
 
     def yellow_Dub(self):
-        pass 
+        self.trade(46, 50, 50, 54)
+
+        blue = [self.cells[10], self.cells[16], self.cells[17]]  
+        green = [self.cells[30], self.cells[31], self.cells[32]]
+        self.cells[10], self.cells[16], self.cells[17] = green[2], green[0], green[1]
+        self.cells[30], self.cells[31], self.cells[32] = blue[1], blue[2], blue[0]
+
+        red = [self.cells[19], self.cells[20], self.cells[21]]
+        orange = [self.cells[41], self.cells[42], self.cells[43]]
+        self.cells[19], self.cells[20], self.cells[21] = orange[0], orange[1], orange[2]
+        self.cells[41], self.cells[42], self.cells[43] = red[0], red[1], red[2]
+
+    def __str__(self):
+        return " ".join([str(cell) for cell in self.cells])[1:]
