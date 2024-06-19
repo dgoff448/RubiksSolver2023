@@ -13,12 +13,11 @@ import os
 
 import createCells
 import cube
+import solver
 
 # Argparse Tutorial (https://www.youtube.com/watch?v=-Sgw-6a1HjU)
 def main(argv: Optional[Sequence[str]] = None) -> int:
     parser = argparse.ArgumentParser()
-
-
 
     # Positional 
     parser.add_argument('-t', '--test', action='store_true')
@@ -29,7 +28,9 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     if args.test:
         os.system("tests.py")
     else:
-        cube = cube.Cube(createCells.createCells(vars(args)['filename']))     # cube contains list of Cell Objects
+        simCube = cube.Cube(createCells.createCells(vars(args)['filename']))     # cube contains list of Cell Objects
+
+
 
 
     return 0
