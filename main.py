@@ -5,7 +5,7 @@ from typing import Sequence
 import os
 
 import createCells
-import Cube
+import cube
 
 # Argparse Tutorial (https://www.youtube.com/watch?v=-Sgw-6a1HjU)
 def main(argv: Optional[Sequence[str]] = None) -> int:
@@ -22,7 +22,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     if args.test:
         os.system("python C:\\Users\\sc864\\OneDrive\\Desktop\\RubiksSolver2023\\tests.py")
     else:
-        cube = Cube.Cube(createCells.createCells(vars(args)['filename']))     # cube contains list of Cell Objects
+        cube = cube.Cube(createCells.createCells(vars(args)['filename']))     # cube contains list of Cell Objects
 
 
     return 0
