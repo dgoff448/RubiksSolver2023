@@ -34,7 +34,7 @@ class Solver:
         for cell in white_cross_cells:
             short_solve1 = {2:11, 4:22, 6:33, 8:44}
             short_solve2 = ['2:29', '4:40', '6:15', '8:26']
-            color = cell.connections[0].color                   # Color of connected cell
+            adjColor = cell.connections[0].color                   # Color of connected cell
 
             if int(cell.actCell // 2) * 11 == short_solve1[cell.actCell]:   # Cell is on 11, 22, 33, 44
                 colorFunctionDict = {
@@ -43,7 +43,7 @@ class Solver:
                     'G': self.simCube.greenCW, 
                     'O': self.simCube.orangeCW
                     }
-                colorFunctionDict[color]()
+                colorFunctionDict[adjColor]()
                 
             elif str(cell.actCell) + ':' + str(cell.curCell) in short_solve2:   # Cell is on 29, 40, 15, 26
                 colorFunctionDict = {
@@ -52,10 +52,19 @@ class Solver:
                     'G': self.simCube.greenCCW, 
                     'O': self.simCube.orangeCCW
                 }
-                colorFunctionDict[color]()
+                colorFunctionDict[adjColor]()
                 
             elif cell.curCell in [17, 20, 31, 42]:  # Cell is on bottom of sides
-                pass
+                if adjColor == 'B':
+                    ...
+                elif adjColor == 'R':
+                    ...
+                elif adjColor == 'G':
+                    ...
+                elif adjColor == 'O':
+                    ...
+                else:
+                    raise Exception(f"ERROR: {adjColor} is not a valid adjacent color.")
 
             elif cell.curCell > 46:                   # Cell is on the yellow side
                 pos = white_to_yellow[cell.actCell] - cell.curCell
