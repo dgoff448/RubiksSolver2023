@@ -1,3 +1,10 @@
+"""
+File: cube.py
+Author: David Goff
+Date: 6/19/24
+Description: A class reprenting the rubik's cube and how it moves.
+"""
+
 class Cube:
     def __init__(self, cells: list):
         self.cells = cells

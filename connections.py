@@ -1,3 +1,10 @@
+"""
+File: connections.py
+Author: David Goff
+Date: 6/19/24
+Description: Dictionaries and lists categorizing the cells and what they are connected to.
+"""
+
 cellKey = {
     1 : 'W1', 2 : 'W2', 3 : 'W3', 4 : 'W4', 5 : 'W5', 6 : 'W6', 7 : 'W7', 8 : 'W8', 9 : 'W9',
     10: 'B1', 11: 'B2', 12: 'B3', 13: 'B4', 14: 'B5', 15: 'B6', 16: 'B7', 17: 'B8', 18: 'B9',

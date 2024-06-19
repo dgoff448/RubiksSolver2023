@@ -1,4 +1,11 @@
-import Cell
+"""
+File: createCells.py
+Author: David Goff
+Date: 6/19/24
+Description: Creates the list of "cells" for the rubik's cube.
+"""
+
+import cell
 
 cornerConnections = [
     [1, 12, 25],
@@ -26,7 +33,7 @@ edgeConnections = [
     [33, 40],
 ]
 
-def createCells(filename: str) -> list[Cell.Cell]:
+def createCells(filename: str) -> list[cell.Cell]:
     rawCells = [""] * 55
     cells = [""] * 55
 
@@ -51,7 +58,7 @@ def createCells(filename: str) -> list[Cell.Cell]:
         else:
             faceColor = 'Y'
         
-        cells[i] = Cell.Cell(i, rawCells[i], faceColor)
+        cells[i] = cell.Cell(i, rawCells[i], faceColor)
 
 
 

@@ -1,3 +1,10 @@
+"""
+File: cell.py
+Author: David Goff
+Date: 6/19/24
+Description: A class representing each "cell" of the rubik's cube. Contains information on its type and what it is connected to.
+"""
+
 import connections
 
 class Cell:

@@ -1,3 +1,10 @@
+"""
+File: main.py
+Author: David Goff
+Date: 6/19/24
+Description: The start of the entire program.
+"""
+
 import argparse
 import pprint
 from typing import Optional
