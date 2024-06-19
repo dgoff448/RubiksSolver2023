@@ -27,7 +27,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     # pprint.pprint(vars(args))
 
     if args.test:
-        os.system("python C:\\Users\\sc864\\OneDrive\\Desktop\\RubiksSolver2023\\tests.py")
+        os.system("tests.py")
     else:
         cube = cube.Cube(createCells.createCells(vars(args)['filename']))     # cube contains list of Cell Objects
 

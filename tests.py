@@ -40,104 +40,104 @@ YELLOW_DUB = "1\t2	3	4	5	6	7	8	9	32	11	12	13	14	15	30	31	18	41	42	43	22	23	24	25
 
 class TestCube(unittest.TestCase):
     def test_White_CW(self):
-        cube = cube.Cube(createCells.createCells('testInput/solvedCube.txt'))
-        cube.white_CW()
-        self.assertEqual(str(cube).replace(' ', '\t'), WHITE_CW)
+        simCube = cube.Cube(createCells.createCells('testInput/solvedCube.txt'))
+        simCube.white_CW()
+        self.assertEqual(str(simCube).replace(' ', '\t'), WHITE_CW)
 
     def test_White_CCW(self):
-        cube = cube.Cube(createCells.createCells('testInput/solvedCube.txt'))
-        cube.white_CCW()
-        self.assertEqual(str(cube).replace(' ', '\t'), WHITE_CCW)
+        simCube = cube.Cube(createCells.createCells('testInput/solvedCube.txt'))
+        simCube.white_CCW()
+        self.assertEqual(str(simCube).replace(' ', '\t'), WHITE_CCW)
 
     def test_White_Dub(self):
-        cube = cube.Cube(createCells.createCells('testInput/solvedCube.txt'))
-        cube.white_Dub()
-        self.assertEqual(str(cube).replace(' ', '\t'), WHITE_DUB)
+        simCube = cube.Cube(createCells.createCells('testInput/solvedCube.txt'))
+        simCube.white_Dub()
+        self.assertEqual(str(simCube).replace(' ', '\t'), WHITE_DUB)
 
     def test_Blue_CW(self):
-        cube = cube.Cube(createCells.createCells('testInput/solvedCube.txt'))
-        cube.blue_CW()
-        self.assertEqual(str(cube).replace(' ', '\t'), BLUE_CW)
+        simCube = cube.Cube(createCells.createCells('testInput/solvedCube.txt'))
+        simCube.blue_CW()
+        self.assertEqual(str(simCube).replace(' ', '\t'), BLUE_CW)
 
     def test_Blue_CCW(self):
-        cube = cube.Cube(createCells.createCells('testInput/solvedCube.txt'))
-        cube.blue_CCW()
-        self.assertEqual(str(cube).replace(' ', '\t'), BLUE_CCW)
+        simCube = cube.Cube(createCells.createCells('testInput/solvedCube.txt'))
+        simCube.blue_CCW()
+        self.assertEqual(str(simCube).replace(' ', '\t'), BLUE_CCW)
 
     def test_Blue_Dub(self):
-        cube = cube.Cube(createCells.createCells('testInput/solvedCube.txt'))
-        cube.blue_Dub()
-        self.assertEqual(str(cube).replace(' ', '\t'), BLUE_DUB)
+        simCube = cube.Cube(createCells.createCells('testInput/solvedCube.txt'))
+        simCube.blue_Dub()
+        self.assertEqual(str(simCube).replace(' ', '\t'), BLUE_DUB)
 
     def test_Red_CW(self):
-        cube = cube.Cube(createCells.createCells('testInput/solvedCube.txt'))
-        cube.red_CW()
-        self.assertEqual(str(cube).replace(' ', '\t'), RED_CW)
+        simCube = cube.Cube(createCells.createCells('testInput/solvedCube.txt'))
+        simCube.red_CW()
+        self.assertEqual(str(simCube).replace(' ', '\t'), RED_CW)
 
     def test_Red_CCW(self):
-        cube = cube.Cube(createCells.createCells('testInput/solvedCube.txt'))
-        cube.red_CCW()
-        self.assertEqual(str(cube).replace(' ', '\t'), RED_CCW)
+        simCube = cube.Cube(createCells.createCells('testInput/solvedCube.txt'))
+        simCube.red_CCW()
+        self.assertEqual(str(simCube).replace(' ', '\t'), RED_CCW)
 
     def test_Red_Dub(self):
-        cube = cube.Cube(createCells.createCells('testInput/solvedCube.txt'))
-        cube.red_Dub()
-        self.assertEqual(str(cube).replace(' ', '\t'), RED_DUB)
+        simCube = cube.Cube(createCells.createCells('testInput/solvedCube.txt'))
+        simCube.red_Dub()
+        self.assertEqual(str(simCube).replace(' ', '\t'), RED_DUB)
 
     def test_Green_CW(self):
-        cube = cube.Cube(createCells.createCells('testInput/solvedCube.txt'))
-        cube.green_CW()
-        self.assertEqual(str(cube).replace(' ', '\t'), GREEN_CW)
+        simCube = cube.Cube(createCells.createCells('testInput/solvedCube.txt'))
+        simCube.green_CW()
+        self.assertEqual(str(simCube).replace(' ', '\t'), GREEN_CW)
 
     def test_Green_CCW(self):
-        cube = cube.Cube(createCells.createCells('testInput/solvedCube.txt'))
-        cube.green_CCW()
-        self.assertEqual(str(cube).replace(' ', '\t'), GREEN_CCW)
+        simCube = cube.Cube(createCells.createCells('testInput/solvedCube.txt'))
+        simCube.green_CCW()
+        self.assertEqual(str(simCube).replace(' ', '\t'), GREEN_CCW)
 
     def test_Green_Dub(self):
-        cube = cube.Cube(createCells.createCells('testInput/solvedCube.txt'))
-        cube.green_Dub()
-        self.assertEqual(str(cube).replace(' ', '\t'), GREEN_DUB)
+        simCube = cube.Cube(createCells.createCells('testInput/solvedCube.txt'))
+        simCube.green_Dub()
+        self.assertEqual(str(simCube).replace(' ', '\t'), GREEN_DUB)
 
     def test_Orange_CW(self):
-        cube = cube.Cube(createCells.createCells('testInput/solvedCube.txt'))
-        cube.orange_CW()
-        self.assertEqual(str(cube).replace(' ', '\t'), ORANGE_CW)
+        simCube = cube.Cube(createCells.createCells('testInput/solvedCube.txt'))
+        simCube.orange_CW()
+        self.assertEqual(str(simCube).replace(' ', '\t'), ORANGE_CW)
 
     def test_Orange_CCW(self):
-        cube = cube.Cube(createCells.createCells('testInput/solvedCube.txt'))
-        cube.orange_CCW()
-        self.assertEqual(str(cube).replace(' ', '\t'), ORANGE_CCW)
+        simCube = cube.Cube(createCells.createCells('testInput/solvedCube.txt'))
+        simCube.orange_CCW()
+        self.assertEqual(str(simCube).replace(' ', '\t'), ORANGE_CCW)
 
     def test_Orange_Dub(self):
-        cube = cube.Cube(createCells.createCells('testInput/solvedCube.txt'))
-        cube.orange_Dub()
-        self.assertEqual(str(cube).replace(' ', '\t'), ORANGE_DUB)
+        simCube = cube.Cube(createCells.createCells('testInput/solvedCube.txt'))
+        simCube.orange_Dub()
+        self.assertEqual(str(simCube).replace(' ', '\t'), ORANGE_DUB)
 
     def test_Yellow_CW(self):
-        cube = cube.Cube(createCells.createCells('testInput/solvedCube.txt'))
-        cube.yellow_CW()
-        self.assertEqual(str(cube).replace(' ', '\t'), YELLOW_CW)
+        simCube = cube.Cube(createCells.createCells('testInput/solvedCube.txt'))
+        simCube.yellow_CW()
+        self.assertEqual(str(simCube).replace(' ', '\t'), YELLOW_CW)
 
     def test_Yellow_CCW(self):
-        cube = cube.Cube(createCells.createCells('testInput/solvedCube.txt'))
-        cube.yellow_CCW()
-        self.assertEqual(str(cube).replace(' ', '\t'), YELLOW_CCW)
+        simCube = cube.Cube(createCells.createCells('testInput/solvedCube.txt'))
+        simCube.yellow_CCW()
+        self.assertEqual(str(simCube).replace(' ', '\t'), YELLOW_CCW)
 
     def test_Yellow_Dub(self):
-        cube = cube.Cube(createCells.createCells('testInput/solvedCube.txt'))
-        cube.yellow_Dub()
-        self.assertEqual(str(cube).replace(' ', '\t'), YELLOW_DUB)
+        simCube = cube.Cube(createCells.createCells('testInput/solvedCube.txt'))
+        simCube.yellow_Dub()
+        self.assertEqual(str(simCube).replace(' ', '\t'), YELLOW_DUB)
 
     def test_Multiple_Moves(self):
-        cube = cube.Cube(createCells.createCells('testInput/solvedCube.txt'))
-        cube.white_CW()
-        cube.blue_Dub()
-        cube.yellow_Dub()
-        cube.yellow_Dub()
-        cube.blue_Dub()
-        cube.white_CCW()
-        self.assertEqual(str(cube).replace(' ', '\t'), SOLVED)
+        simCube = cube.Cube(createCells.createCells('testInput/solvedCube.txt'))
+        simCube.white_CW()
+        simCube.blue_Dub()
+        simCube.yellow_Dub()
+        simCube.yellow_Dub()
+        simCube.blue_Dub()
+        simCube.white_CCW()
+        self.assertEqual(str(simCube).replace(' ', '\t'), SOLVED)
 
 if __name__ == '__main__':
     unittest.main()
