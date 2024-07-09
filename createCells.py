@@ -36,8 +36,9 @@ edgeConnections = [
 def createCells(filename: str) -> list[cell.Cell]:
     rawCells = [""] * 55
     cells = [""] * 55
+    # cells = []
 
-    with open(filename, 'r') as f:
+    with open(f'./testInput/{filename}', 'r') as f:
         lines = f.readlines()
         for i in range(0, len(lines)):
             rawCells[i+1] = lines[i].strip()
@@ -59,6 +60,7 @@ def createCells(filename: str) -> list[cell.Cell]:
             faceColor = 'Y'
         
         cells[i] = cell.Cell(i, rawCells[i], faceColor)
+        # cells.append(cell.Cell(i, rawCells[i], faceColor))
 
 
 
@@ -73,4 +75,6 @@ def createCells(filename: str) -> list[cell.Cell]:
             cell0.setConnections([cells[cc[0]], cells[cc[1]]])
             cc.insert(i, tempCC)    
 
+    cells.pop(0)
+    # print(cells)
     return cells

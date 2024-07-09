@@ -29,7 +29,12 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         os.system("tests.py")
     else:
         simCube = cube.Cube(createCells.createCells(vars(args)['filename']))     # cube contains list of Cell Objects
-
+        cubeSolver = solver.Solver(simCube)
+        cubeSolver.solveWhiteCross()
+        with open('./output/moves.txt', 'w') as f:
+            for line in cubeSolver.simCube.instructions:
+                f.write(line + '\n')
+        f.close()
 
 
 
