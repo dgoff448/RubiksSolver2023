@@ -8,6 +8,7 @@ Description: A class reprenting the rubik's cube and how it moves.
 class Cube:
     def __init__(self, cells: list):
         self.cells = cells
+        self.instructions = []
     
     # trades slice a to b with slice c to d
     def trade(self, a: int, b: int, c: int, d: int):
@@ -97,6 +98,8 @@ class Cube:
 
         self.cells[12], self.cells[13], self.cells[14] = orange[0], orange[1], orange[2]
 
+        self.instructions.append('W-CW')
+
     def white_CCW(self):
         self.trade(1, 3, 3, 9) # rotating white cells CCW
         
@@ -113,6 +116,8 @@ class Cube:
         self.cells[23], self.cells[24], self.cells[25] = green[1], green[2], green[0]
 
         self.cells[12], self.cells[13], self.cells[14] = red[0], red[1], red[2]
+
+        self.instructions.append('W-CCW')
         
     def white_Dub(self):
         self.trade(1, 5, 5, 9) # rotating white cells Double
@@ -126,6 +131,8 @@ class Cube:
         orange = [self.cells[37], self.cells[38], self.cells[39]]
         self.cells[23], self.cells[24], self.cells[25] = orange[0], orange[1], orange[2]
         self.cells[37], self.cells[38], self.cells[39] = red[0], red[1], red[2]
+
+        self.instructions.append('W-Dub')
 
     def blue_CW(self):
         self.trade(10, 16, 16, 18) # rotating blue cells CW
@@ -144,6 +151,8 @@ class Cube:
 
         self.cells[1], self.cells[7], self.cells[8] = red[0], red[1], red[2]
 
+        self.instructions.append('B-CW')
+
     def blue_CCW(self):
         self.trade(10, 12, 12, 18) # rotating blue cells CCW
 
@@ -161,6 +170,8 @@ class Cube:
 
         self.cells[1], self.cells[7], self.cells[8] = orange[0], orange[1], orange[2]
 
+        self.instructions.append('B-CCW')
+
     def blue_Dub(self):
         self.trade(10, 14, 14, 18) # rotating blue cells Dub
 
@@ -173,6 +184,8 @@ class Cube:
         orange = [self.cells[37], self.cells[43], self.cells[44]]
         self.cells[19], self.cells[25], self.cells[26] = orange[0], orange[1], orange[2]
         self.cells[37], self.cells[43], self.cells[44] = red[0], red[1], red[2]
+
+        self.instructions.append('B-Dub')
 
     def red_CW(self):
         self.trade(19, 25, 25, 27)
@@ -190,6 +203,8 @@ class Cube:
         self.cells[28], self.cells[29], self.cells[30] = yellow[0], yellow[1], yellow[2]
 
         self.cells[1], self.cells[2], self.cells[3] = green[0], green[1], green[2]
+
+        self.instructions.append('R-CW')
         
     def red_CCW(self):
         self.trade(19, 21, 21, 27)
@@ -208,6 +223,8 @@ class Cube:
 
         self.cells[1], self.cells[2], self.cells[3] = blue[0], blue[1], blue[2]
 
+        self.instructions.append('R-CCW')
+
     def red_Dub(self):
         self.trade(19, 23, 23, 27)
 
@@ -220,6 +237,8 @@ class Cube:
         green = [self.cells[28], self.cells[29], self.cells[30]]
         self.cells[10], self.cells[11], self.cells[12] = green[0], green[1], green[2]
         self.cells[28], self.cells[29], self.cells[30] = blue[0], blue[1], blue[2]
+
+        self.instructions.append('R-Dub')
 
     def green_CW(self):
         self.trade(28, 34, 34, 36)
@@ -237,6 +256,8 @@ class Cube:
         self.cells[39], self.cells[40], self.cells[41] = yellow[0], yellow[1], yellow[2]
 
         self.cells[3], self.cells[4], self.cells[5] = orange[0], orange[1], orange[2]
+
+        self.instructions.append('G-CW')
         
     def green_CCW(self):
         self.trade(28, 30, 30, 36)
@@ -255,6 +276,8 @@ class Cube:
 
         self.cells[3], self.cells[4], self.cells[5] = red[0], red[1], red[2]
 
+        self.instructions.append('G-CCW')
+
     def green_Dub(self):
         self.trade(28, 32, 32, 36)
 
@@ -267,6 +290,8 @@ class Cube:
         orange = [self.cells[39], self.cells[40], self.cells[41]]
         self.cells[21], self.cells[22], self.cells[23] = orange[0], orange[1], orange[2]
         self.cells[39], self.cells[40], self.cells[41] = red[0], red[1], red[2]
+
+        self.instructions.append('G-Dub')
 
     def orange_CW(self):
         self.trade(37, 43, 43, 45)
@@ -285,6 +310,8 @@ class Cube:
 
         self.cells[5], self.cells[6], self.cells[7] = blue[0], blue[1], blue[2]
 
+        self.instructions.append('O-CW')
+
     def orange_CCW(self):
         self.trade(37, 39, 39, 45)
 
@@ -302,6 +329,8 @@ class Cube:
 
         self.cells[5], self.cells[6], self.cells[7] = green[0], green[1], green[2]
 
+        self.instructions.append('O-CCW')
+
     def orange_Dub(self):
         self.trade(37, 41, 41, 45)
 
@@ -314,6 +343,8 @@ class Cube:
         green = [self.cells[32], self.cells[33], self.cells[34]]
         self.cells[14], self.cells[15], self.cells[16] = green[0], green[1], green[2]
         self.cells[32], self.cells[33], self.cells[34] = blue[0], blue[1], blue[2]
+
+        self.instructions.append('O-Dub')
 
     def yellow_CW(self):
         self.trade(46, 52, 52, 54)
@@ -332,6 +363,8 @@ class Cube:
 
         self.cells[10], self.cells[16], self.cells[17] = red[2], red[0], red[1]
 
+        self.instructions.append('Y-CW')
+
     def yellow_CCW(self):
         self.trade(46, 48, 48, 54)
 
@@ -349,6 +382,8 @@ class Cube:
 
         self.cells[10], self.cells[16], self.cells[17] = orange[2], orange[0], orange[1]
 
+        self.instructions.append('Y-CCW')
+
     def yellow_Dub(self):
         self.trade(46, 50, 50, 54)
 
@@ -361,6 +396,8 @@ class Cube:
         orange = [self.cells[41], self.cells[42], self.cells[43]]
         self.cells[19], self.cells[20], self.cells[21] = orange[0], orange[1], orange[2]
         self.cells[41], self.cells[42], self.cells[43] = red[0], red[1], red[2]
+
+        self.instructions.append('Y-Dub')
 
     def __str__(self):
         return " ".join([str(cell) for cell in self.cells])[1:]
