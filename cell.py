@@ -19,6 +19,19 @@ class Cell:
         self.actCell = (self.curCell if self.isCenter else "")         # the actual cell it is (actual needs to find the currentPlace that matches)
         self.connections = []
 
+        if placeNum < 10:
+            self.curColor = 'W'
+        elif placeNum < 19:
+            self.curColor = 'B'
+        elif placeNum < 28:
+            self.curColor = 'R'
+        elif placeNum < 37:
+            self.curColor = 'G'
+        elif placeNum < 46:
+            self.curColor = 'O'
+        else:
+            self.curColor = 'Y'
+
     def findActCell(self):
         if self.isEdge:
             c1 = self.connections[0]

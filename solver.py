@@ -49,7 +49,7 @@ class Solver:
             short_solve1 = {2:11, 4:22, 6:33, 8:44}             # Cell is on 11, 22, 33, 44
             short_solve2 = ['2:29', '4:40', '6:15', '8:26']     # Cell is on 15, 26, 29, 40
             adjColor = cell.connections[0].color                # Color of connected cell
-            curColor = cell.color                               # Color of current cell
+            curColor = cell.curColor                            # Color of current cell's side
             colorOrder = ['B', 'O', 'G', 'R']
 
             if int(cell.actCell // 2) * 11 == short_solve1[cell.actCell]:   # Cell is on 11, 22, 33, 44
@@ -79,18 +79,43 @@ class Solver:
                     self.simCube.whiteCCW()
                     colorFunctionDict[curColor + 'CW']      # Calls move function corresponding with the given color key
                     self.simCube.whiteCW()
+
+            elif cell in [17, 20, 31, 42]:    # White Cross Side Bottom
+                Opps = {'B':'G', 'G':'B', 'R':'O', 'O':'R'}
+                if curColor == adjColor:
+                    self.simCube.yellowCW()
+                elif curColor == Opps[adjColor]:
+                    self.simCube.yellowCCW()
                 
-            elif cell.curCell in [17, 20, 31, 42]:  # Cell is on bottom of sides
-                if adjColor == 'B':
-                    ...
-                elif adjColor == 'R':
-                    ...
-                elif adjColor == 'G':
-                    ...
-                elif adjColor == 'O':
-                    ...
+                if colorOrder[colorOrder.index(curColor)-3] == adjColor:
+                    colorFunctionDict[adjColor + 'CW']
+                    colorFunctionDict[curColor + 'CW']
+                    colorFunctionDict[adjColor + 'CCW']
+                    colorFunctionDict[curColor + 'CCW']
                 else:
-                    raise Exception(f"ERROR: {adjColor} is not a valid adjacent color.")
+                    colorFunctionDict[adjColor + 'CCW']
+                    colorFunctionDict[curColor + 'CCW']
+                    colorFunctionDict[adjColor + 'CW']
+                    colorFunctionDict[curColor + 'CW']
+
+            elif cell in [13, 24, 35, 38]: # White Cross Side Top
+                Opps = {'B':'G', 'G':'B', 'R':'O', 'O':'R'}
+                if adjColor == Opps[curColor]:
+                    colorFunctionDict[curColor + 'CCW']
+                    self.simCube.whiteCCw()
+                    colorFunctionDict[colorOrder[colorOrder.index(curColor)-1] + 'CCW']
+                    self.simCube.whiteCW()
+                elif adjColor == colorOrder[colorOrder.index(curColor)-1]:
+                    colorFunctionDict[curColor + 'CCW']
+                    colorFunctionDict[adjColor + 'CCW']
+                elif curColor == colorOrder[colorOrder.index(adjColor)-1]:
+                    colorFunctionDict[curColor + 'CW']
+                    colorFunctionDict[adjColor + 'CW']
+                else:
+                    colorFunctionDict[curColor + 'CCW']
+                    self.simCube.whiteCW()
+                    colorFunctionDict[colorOrder[colorOrder.index(adjColor)-1] + 'CCW']
+                    self.simCube.whiteCCW()
 
             elif cell.curCell > 46:                   # Cell is on the yellow side
                 pos = white_to_yellow[cell.actCell] - cell.curCell
@@ -106,4 +131,132 @@ class Solver:
             else:
                 raise Exception(f"ERROR: {cell.curCell} is not a valid placement for white edge cell.")
             
-    
+    def solveWhiteCorners(self):
+        colorFunctionDict = {               # Maps the color string with the actual move to be dynamically called later
+            'BCW': self.simCube.blueCW, 
+            'RCW': self.simCube.redCW, 
+            'GCW': self.simCube.greenCW, 
+            'OCW': self.simCube.orangeCW,
+            'BCCW': self.simCube.blueCCW, 
+            'RCCW': self.simCube.redCCW, 
+            'GCCW': self.simCube.greenCCW, 
+            'OCCW': self.simCube.orangeCCW,
+            'BDub': self.simCube.blueDub, 
+            'RDub': self.simCube.redDub, 
+            'GDub': self.simCube.greenDub, 
+            'ODub': self.simCube.orangeDub
+        } 
+
+        # White Corner Cells = 1, 3, 5, 7
+        white_corner_cells = []
+        for cell in self.simCube.cells:             # Finds the white corner cells
+            if cell.actCell in [1, 3, 5, 7]:
+                white_corner_cells.append(cell)
+            if len(white_corner_cells) == 4:
+                break
+
+        for cell in white_corner_cells:
+            adjColor = cell.connections[0].color                # Color of connected cell
+            curColor = cell.curColor                            # Color of current cell's side
+            colorOrder = ['B', 'O', 'G', 'R']
+
+            if cell in [12, 23, 34, 37]:    # White Corners Side Left Top
+                if curColor == colorOrder[colorOrder.index(adjColor)-1]:
+                    colorFunctionDict[curColor + 'CCW']
+                    self.simCube.yellowCCW()
+                    colorFunctionDict[curColor + 'Dub']
+                    self.simCube.yellowDub()
+                    colorFunctionDict[curColor + 'CCW']
+                elif curColor == colorOrder[colorOrder.index(adjColor)-2]:
+                    colorFunctionDict[curColor + 'CCW']
+                    colorFunctionDict[colorOrder[colorOrder.index(curColor)-3] + 'CW']
+                    self.simCube.yellowDub()
+                    colorFunctionDict[colorOrder[colorOrder.index(curColor)-3] + 'CCW']
+                    colorFunctionDict[curColor + 'CW']
+                elif curColor == colorOrder[colorOrder.index(adjColor)-3]:
+                    colorFunctionDict[curColor + 'CCW']
+                    colorFunctionDict[colorOrder[colorOrder.index(curColor)-2] + 'CW']
+                    self.simCube.yellowCCw()
+                    colorFunctionDict[colorOrder[colorOrder.index(curColor)-2] + 'CCW']
+                    colorFunctionDict[curColor + 'CW']
+                else:
+                    colorFunctionDict[curColor + 'CCW']
+                    self.simCube.yellowCCW()
+                    colorFunctionDict[curColor + 'CW']
+                    self.simCube.yellowCW()
+                    colorFunctionDict[curColor + 'CCW']
+                    self.simCube.yellowCCW()
+                    colorFunctionDict[curColor + 'CW']
+
+            elif cell in [10, 21, 32, 43]:  # White Corners Side Left Bottom
+                if curColor == colorOrder[colorOrder.index(adjColor)-2]:
+                    colorFunctionDict[adjColor + 'CW']
+                    self.simCube.yellowCCW()
+                    colorFunctionDict[adjColor + 'CCW']
+                elif curColor == colorOrder[colorOrder.index(adjColor)-3]:
+                    colorFunctionDict[adjColor + 'CW']
+                    self.simCube.yellowDub()
+                    colorFunctionDict[adjColor + 'CCW']
+                elif curColor == adjColor:
+                    self.simCube.yellowCCW()
+                    colorFunctionDict[adjColor + 'CW']
+                    self.simCube.yellowDub()
+                    colorFunctionDict[adjColor + 'CCW']
+                else:
+                    self.simCube.yellowCW()
+                    colorFunctionDict[adjColor + 'CW']
+                    self.simCube.yellowCCW()
+                    colorFunctionDict[adjColor + 'CCW']
+
+            elif cell in [16, 19, 30, 41]:  # White Corners Side Right Bottom
+                if curColor == colorOrder[colorOrder.index(adjColor)-2]:
+                    colorFunctionDict[adjColor + 'CCW']
+                    self.simCube.yellowCW()
+                    colorFunctionDict[adjColor + 'CW']
+                elif curColor == colorOrder[colorOrder.index(adjColor)-3]:
+                    colorFunctionDict[adjColor + 'CCW']
+                    self.simCube.yellowDub()
+                    colorFunctionDict[adjColor + 'CW']
+                elif curColor == adjColor:
+                    self.simCube.yellowCW()
+                    colorFunctionDict[adjColor + 'CCW']
+                    self.simCube.yellowDub()
+                    colorFunctionDict[adjColor + 'CW']
+                else:
+                    self.simCube.yellowCCW()
+                    colorFunctionDict[adjColor + 'CCW']
+                    self.simCube.yellowCW()
+                    colorFunctionDict[adjColor + 'CW']
+            
+            elif cell in [14, 25, 28, 39]:  # White Corners Side Right Top
+                if curColor == colorOrder[colorOrder.index(adjColor)-1]:
+                    colorFunctionDict[curColor + 'CW']
+                    colorFunctionDict[colorOrder[colorOrder.index(curColor)-2] + 'CCW']
+                    self.simCube.yellowCW()
+                    colorFunctionDict[colorOrder[colorOrder.index(curColor)-2] + 'CW']
+                    colorFunctionDict[curColor + 'CCW']
+                elif curColor == colorOrder[colorOrder.index(adjColor)-2]:
+                    colorFunctionDict[curColor + 'CW']
+                    colorFunctionDict[colorOrder[colorOrder.index(adjColor)-3] + 'CCW']
+                    self.simCube.yellowDub()
+                    colorFunctionDict[colorOrder[colorOrder.index(adjColor)-3] + 'CW']
+                    colorFunctionDict[curColor + 'CCW']
+                elif curColor == colorOrder[colorOrder.index(adjColor)-3]:
+                    colorFunctionDict[curColor + 'Dub']
+                    self.simCube.yellowCW()
+                    colorFunctionDict[adjColor + 'CW']
+                    self.simCube.yellowCCW()
+                    colorFunctionDict[adjColor + 'Dub']
+                    colorFunctionDict[curColor + 'Dub']
+                    colorFunctionDict[adjColor + 'CW']
+                else:
+                    colorFunctionDict[colorOrder[colorOrder.index(adjColor)-3] + 'CCW']
+                    self.simCube.yellowCW()
+                    colorFunctionDict[colorOrder[colorOrder.index(adjColor)-3] + 'CW']
+                    self.simCube.yellowCCW()
+                    colorFunctionDict[colorOrder[colorOrder.index(adjColor)-3] + 'CCW']
+                    self.simCube.yellowCW()
+                    colorFunctionDict[colorOrder[colorOrder.index(adjColor)-3] + 'CW']
+
+            else:
+                raise Exception(f"ERROR: {cell.curCell} is not a valid placement for white corner cell.")
