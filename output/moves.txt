@@ -1,9 +1,0 @@
-R-Dub
-Y-Dub
-O-Dub
-W-CW
-G-CCW
-W-CCW
-W-Dub
-G-CCW
-W-Dub

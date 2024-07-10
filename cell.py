@@ -32,6 +32,12 @@ class Cell:
         else:
             self.curColor = 'Y'
 
+    def updatePosition(self, newNum):
+        self.curCell = newNum
+
+    def updateColor(self, newColor):
+        self.curColor = newColor
+
     def findActCell(self):
         if self.isEdge:
             c1 = self.connections[0]

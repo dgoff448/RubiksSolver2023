@@ -75,6 +75,6 @@ def createCells(filename: str) -> list[cell.Cell]:
             cell0.setConnections([cells[cc[0]], cells[cc[1]]])
             cc.insert(i, tempCC)    
 
-    cells.pop(0)
+    # cells.pop(0)
     # print(cells)
     return cells

@@ -5,6 +5,64 @@ Date: 6/19/24
 Description: A class reprenting the rubik's cube and how it moves.
 """
 
+colorMap = {
+    1:'white',
+    2:'white', 
+    3:'white', 
+    4:'white', 
+    5:'white', 
+    6:'white', 
+    7:'white', 
+    8:'white', 
+    9:'white', 
+    10:'blue', 
+    11:'blue', 
+    12:'blue', 
+    13:'blue', 
+    14:'blue', 
+    15:'blue', 
+    16:'blue', 
+    17:'blue', 
+    18:'blue', 
+    19:'red',  
+    20:'red',  
+    21:'red',  
+    22:'red',  
+    23:'red',  
+    24:'red',  
+    25:'red',  
+    26:'red',  
+    27:'red',  
+    28:'green',
+    29:'green',
+    30:'green',
+    31:'green',
+    32:'green',
+    33:'green',
+    34:'green',
+    35:'green',
+    36:'green',
+    37:'orange',
+    38:'orange',
+    39:'orange',
+    40:'orange',
+    41:'orange',
+    42:'orange',
+    43:'orange',
+    44:'orange',
+    45:'orange',
+    46:'yellow',
+    47:'yellow',
+    48:'yellow',
+    49:'yellow',
+    50:'yellow',
+    51:'yellow',
+    52:'yellow',
+    53:'yellow',
+    54:'yellow'
+}
+
+
 class Cube:
     def __init__(self, cells: list):
         self.cells = cells
@@ -81,6 +139,18 @@ class Cube:
             print(self)
             raise(Exception(f"Error: {moveType} didn't end with [-1, -1, -1]!"))
 
+    def updateCellData(self):
+        colorMap = {1:'W', 2:'W', 3:'W', 4:'W', 5:'W', 6:'W', 7:'W', 8:'W', 9:'W',
+                10:'B', 11:'B', 12:'B', 13:'B', 14:'B', 15:'B', 16:'B', 17:'B', 18:'B',
+                19:'R', 20:'R', 21:'R', 22:'R', 23:'R', 24:'R', 25:'R', 26:'R', 27:'R',
+                28:'G', 29:'G', 30:'G', 31:'G', 32:'G', 33:'G', 34:'G', 35:'G', 36:'G',
+                37:'O', 38:'O', 39:'O', 40:'O', 41:'O', 42:'O', 43:'O', 44:'O', 45:'O',
+                46:'Y', 47:'Y', 48:'Y', 49:'Y', 50:'Y', 51:'Y', 52:'Y', 53:'Y', 54:'Y'
+        }
+        for i in range(1, len(self.cells)):
+            self.cells[i].updatePosition(i)
+            self.cells[i].updateColor(colorMap[i])
+
     def white_CW(self):
         self.trade(1, 7, 7, 9) # rotating white cells CW
         
@@ -98,6 +168,7 @@ class Cube:
 
         self.cells[12], self.cells[13], self.cells[14] = orange[0], orange[1], orange[2]
 
+        self.updateCellData()
         self.instructions.append('W-CW')
 
     def white_CCW(self):
@@ -117,6 +188,7 @@ class Cube:
 
         self.cells[12], self.cells[13], self.cells[14] = red[0], red[1], red[2]
 
+        self.updateCellData()
         self.instructions.append('W-CCW')
         
     def white_Dub(self):
@@ -132,6 +204,7 @@ class Cube:
         self.cells[23], self.cells[24], self.cells[25] = orange[0], orange[1], orange[2]
         self.cells[37], self.cells[38], self.cells[39] = red[0], red[1], red[2]
 
+        self.updateCellData()
         self.instructions.append('W-Dub')
 
     def blue_CW(self):
@@ -151,6 +224,7 @@ class Cube:
 
         self.cells[1], self.cells[7], self.cells[8] = red[0], red[1], red[2]
 
+        self.updateCellData()
         self.instructions.append('B-CW')
 
     def blue_CCW(self):
@@ -170,6 +244,7 @@ class Cube:
 
         self.cells[1], self.cells[7], self.cells[8] = orange[0], orange[1], orange[2]
 
+        self.updateCellData()
         self.instructions.append('B-CCW')
 
     def blue_Dub(self):
@@ -185,6 +260,7 @@ class Cube:
         self.cells[19], self.cells[25], self.cells[26] = orange[0], orange[1], orange[2]
         self.cells[37], self.cells[43], self.cells[44] = red[0], red[1], red[2]
 
+        self.updateCellData()
         self.instructions.append('B-Dub')
 
     def red_CW(self):
@@ -204,6 +280,7 @@ class Cube:
 
         self.cells[1], self.cells[2], self.cells[3] = green[0], green[1], green[2]
 
+        self.updateCellData()
         self.instructions.append('R-CW')
         
     def red_CCW(self):
@@ -223,6 +300,7 @@ class Cube:
 
         self.cells[1], self.cells[2], self.cells[3] = blue[0], blue[1], blue[2]
 
+        self.updateCellData()
         self.instructions.append('R-CCW')
 
     def red_Dub(self):
@@ -238,6 +316,7 @@ class Cube:
         self.cells[10], self.cells[11], self.cells[12] = green[0], green[1], green[2]
         self.cells[28], self.cells[29], self.cells[30] = blue[0], blue[1], blue[2]
 
+        self.updateCellData()
         self.instructions.append('R-Dub')
 
     def green_CW(self):
@@ -257,6 +336,7 @@ class Cube:
 
         self.cells[3], self.cells[4], self.cells[5] = orange[0], orange[1], orange[2]
 
+        self.updateCellData()
         self.instructions.append('G-CW')
         
     def green_CCW(self):
@@ -276,6 +356,7 @@ class Cube:
 
         self.cells[3], self.cells[4], self.cells[5] = red[0], red[1], red[2]
 
+        self.updateCellData()
         self.instructions.append('G-CCW')
 
     def green_Dub(self):
@@ -291,6 +372,7 @@ class Cube:
         self.cells[21], self.cells[22], self.cells[23] = orange[0], orange[1], orange[2]
         self.cells[39], self.cells[40], self.cells[41] = red[0], red[1], red[2]
 
+        self.updateCellData()
         self.instructions.append('G-Dub')
 
     def orange_CW(self):
@@ -310,6 +392,7 @@ class Cube:
 
         self.cells[5], self.cells[6], self.cells[7] = blue[0], blue[1], blue[2]
 
+        self.updateCellData()
         self.instructions.append('O-CW')
 
     def orange_CCW(self):
@@ -329,6 +412,7 @@ class Cube:
 
         self.cells[5], self.cells[6], self.cells[7] = green[0], green[1], green[2]
 
+        self.updateCellData()
         self.instructions.append('O-CCW')
 
     def orange_Dub(self):
@@ -344,6 +428,7 @@ class Cube:
         self.cells[14], self.cells[15], self.cells[16] = green[0], green[1], green[2]
         self.cells[32], self.cells[33], self.cells[34] = blue[0], blue[1], blue[2]
 
+        self.updateCellData()
         self.instructions.append('O-Dub')
 
     def yellow_CW(self):
@@ -363,6 +448,7 @@ class Cube:
 
         self.cells[10], self.cells[16], self.cells[17] = red[2], red[0], red[1]
 
+        self.updateCellData()
         self.instructions.append('Y-CW')
 
     def yellow_CCW(self):
@@ -382,6 +468,7 @@ class Cube:
 
         self.cells[10], self.cells[16], self.cells[17] = orange[2], orange[0], orange[1]
 
+        self.updateCellData()
         self.instructions.append('Y-CCW')
 
     def yellow_Dub(self):
@@ -397,6 +484,7 @@ class Cube:
         self.cells[19], self.cells[20], self.cells[21] = orange[0], orange[1], orange[2]
         self.cells[41], self.cells[42], self.cells[43] = red[0], red[1], red[2]
 
+        self.updateCellData()
         self.instructions.append('Y-Dub')
 
     def __str__(self):
