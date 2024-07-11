@@ -1,0 +1,34 @@
+White Corners Side Left Top (12, 23, 34, 37):
+1 - 1 23
+2 - 1 34
+3 - 1 37
+4 - 5 34, 7 37, 1 12
+
+White Corners Side Left Bottom (10, 21, 32, 43):
+1 - 3 10
+2 - 3 43
+3 - 3 21, 5 10, 1 10,
+4 - 3 32, 5 43, 7 10, 1 21
+
+White Corners Side Right Bottom (16, 19, 30, 41):
+1 - 5 16, 7 19
+2 - 5 30
+3 - 1 16
+4 - 5 41
+
+White Corners Side Right Top (14, 25, 28, 39):
+1 - 1 28
+2 - 1 39
+3 - 1 14
+4 - 1 25, 3 28
+
+White Corners on Yellow (46, 48, 50, 52):
+1 - 3 52
+2 - 3 46
+3 - 3 48, 1 50, 5 46
+4 - 3 50
+
+White Corners on Wrong White (1, 3, 5, 7):
+1 - 3 1
+2 - 1 5
+3 - 1 3, 7 1

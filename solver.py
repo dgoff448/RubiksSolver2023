@@ -195,25 +195,25 @@ class Solver:
             if cell.curCell == cell.actCell:
                 pass
             elif cell.curCell in [12, 23, 34, 37]:    # White Corners Side Left Top
-                if curColor == colorOrder[colorOrder.index(adjColor)-1]:
+                if curColor == colorOrder[colorOrder.index(adjColor)-1]:                        
                     colorFunctionDict[curColor + 'CCW']()
                     self.simCube.yellow_CCW()
                     colorFunctionDict[curColor + 'Dub']()
                     self.simCube.yellow_Dub()
                     colorFunctionDict[curColor + 'CCW']()
-                elif curColor == colorOrder[colorOrder.index(adjColor)-2]:
+                elif curColor == colorOrder[colorOrder.index(adjColor)-2]:                      
                     colorFunctionDict[curColor + 'CCW']()
                     colorFunctionDict[colorOrder[colorOrder.index(curColor)-3] + 'CW']()
                     self.simCube.yellow_Dub()
                     colorFunctionDict[colorOrder[colorOrder.index(curColor)-3] + 'CCW']()
                     colorFunctionDict[curColor + 'CW']()
-                elif curColor == colorOrder[colorOrder.index(adjColor)-3]:
+                elif curColor == colorOrder[colorOrder.index(adjColor)-3]:                       
                     colorFunctionDict[curColor + 'CCW']()
                     colorFunctionDict[colorOrder[colorOrder.index(curColor)-2] + 'CW']()
                     self.simCube.yellow_CCW()
                     colorFunctionDict[colorOrder[colorOrder.index(curColor)-2] + 'CCW']()
                     colorFunctionDict[curColor + 'CW']()
-                else:
+                else:                                                                           
                     colorFunctionDict[curColor + 'CCW']()
                     self.simCube.yellow_CCW()
                     colorFunctionDict[curColor + 'CW']()
@@ -225,15 +225,15 @@ class Solver:
             elif cell.curCell in [10, 21, 32, 43]:  # White Corners Side Left Bottom
                 adjColor = (cell.connections[0].color) if cell.connections[0].curColor != 'Y' else (cell.connections[1].color)         # Color of connected cell that is not on white
                 
-                if curColor == colorOrder[colorOrder.index(adjColor)-2]:
+                if curColor == colorOrder[colorOrder.index(adjColor)-2]:    # 
                     colorFunctionDict[adjColor + 'CW']()
                     self.simCube.yellow_CCW()
                     colorFunctionDict[adjColor + 'CCW']()
-                elif curColor == colorOrder[colorOrder.index(adjColor)-1]:
+                elif curColor == colorOrder[colorOrder.index(adjColor)-1]:  # Opposite Corner
                     colorFunctionDict[adjColor + 'CW']()
                     self.simCube.yellow_Dub()
                     colorFunctionDict[adjColor + 'CCW']()
-                elif curColor == colorOrder[colorOrder.index(adjColor)-3]:
+                elif curColor == colorOrder[colorOrder.index(adjColor)-3]:  # 
                     self.simCube.yellow_CW()
                     colorFunctionDict[adjColor + 'CW']()
                     self.simCube.yellow_CCW()
@@ -246,6 +246,8 @@ class Solver:
                     
 
             elif cell.curCell in [16, 19, 30, 41]:  # White Corners Side Right Bottom
+                adjColor = (cell.connections[0].color) if cell.connections[0].curColor != 'Y' else (cell.connections[1].color)         # Color of connected cell that is not on white
+
                 if curColor == colorOrder[colorOrder.index(adjColor)-2]:
                     colorFunctionDict[adjColor + 'CCW']()
                     self.simCube.yellow_CW()
@@ -301,9 +303,9 @@ class Solver:
 
                 # Priming Position of Cell
                 if curToAct[cell.curCell] != cell.actCell:
-                    if acts[acts.index(cell.actCell)-1] == acts.index(curToAct[cell.curCell]):
+                    if acts[acts.index(cell.actCell)-1] == acts[acts.index(curToAct[cell.curCell])]:
                         self.simCube.yellow_CCW()
-                    elif acts[acts.index(cell.actCell)-2] == acts.index(curToAct[cell.curCell]):
+                    elif acts[acts.index(cell.actCell)-2] == acts[acts.index(curToAct[cell.curCell])]:
                         self.simCube.yellow_Dub()
                     else:   # -3
                         self.simCube.yellow_CW()
@@ -313,53 +315,60 @@ class Solver:
                     left, right = cell.connections[0], cell.connections[1]
                 else:
                     left, right = cell.connections[1], cell.connections[0]
+                rightColor = right.curColor
+                leftColor = left.curColor
 
                 # Moves to put cell in place
-                colorFunctionDict[right.curColor + 'CCW']()
+                colorFunctionDict[rightColor + 'CW']()
                 self.simCube.yellow_Dub()
-                colorFunctionDict[right.curColor + 'CW']()
+                colorFunctionDict[rightColor + 'CCW']()
                 self.simCube.yellow_Dub()
-                colorFunctionDict[left.curColor + 'CW']()
+                colorFunctionDict[leftColor + 'CCW']()
                 self.simCube.yellow_CW()
-                colorFunctionDict[left.curColor + 'CCW']()
+                colorFunctionDict[leftColor + 'CW']()
 
             elif cell.curCell in [1, 3, 5, 7]:          # White Corners on Wrong White
                 acts = [1, 3, 5, 7]
 
                 # Distinguishing between left or right connections
                 if colorOrder[colorOrder.index(cell.connections[0].curColor)-1] == colorOrder[colorOrder.index(cell.connections[1].curColor)]:
-                    left, right= cell.connections[0], cell.connections[1]
+                    right, left = cell.connections[0], cell.connections[1]
                 else:
-                    left, right = cell.connections[1], cell.connections[0]
-                leftleftColor = colorOrder[colorOrder.index(left.curColor)-3]
-                rightrightColor = colorOrder[colorOrder.index(right.curColor)-1]
+                    right, left = cell.connections[1], cell.connections[0]
+                leftleftColor = colorOrder[colorOrder.index(left.curColor)-1]
+                leftColor = left.curColor
+                rightrightColor = colorOrder[colorOrder.index(right.curColor)-3]
                 rightColor = right.curColor
 
                 print(f"right: {right}, {right.curColor}, {right.curColor + 'CW'}")
-
+                print(f"cell.actCell: {cell.actCell}, cell.curCell: {cell.curCell}")
                 # Moves to put cell in place
-                if acts.index(cell.actCell)-1 == acts.index(cell.curCell):
-                    colorFunctionDict[left.curColor + 'CW']()
+                if acts[acts.index(cell.actCell)-1] == acts[acts.index(cell.curCell)]:      # If cell is CCW one space from where it should be
+                    # colorFunctionDict[left.curColor + 'CW']()
+                    # colorFunctionDict[leftleftColor + 'CW']()
+                    # self.simCube.yellow_CCW()
+                    # colorFunctionDict[leftleftColor + 'Dub']()
+                    # colorFunctionDict[left.curColor + 'CCW']()  
+                    # colorFunctionDict[leftleftColor + 'CW']()
+                    colorFunctionDict[leftColor + 'CW']()
+                    self.simCube.yellow_CW()
+                    colorFunctionDict[leftColor + 'CCW']()
                     colorFunctionDict[leftleftColor + 'CW']()
-                    self.simCube.yellow_CCW()
-                    colorFunctionDict[leftleftColor + 'Dub']()
-                    colorFunctionDict[left.curColor + 'CCW']()  
-                    colorFunctionDict[leftleftColor + 'CW']()
-                elif acts.index(cell.actCell)-2 == acts.index(cell.curCell):
+                    self.simCube.yellow_Dub()
+                    colorFunctionDict[leftleftColor + 'CCW']()
+                elif acts[acts.index(cell.actCell)-2] == acts[acts.index(cell.curCell)]:    # If cell is opposite corner from where it should be
                     colorFunctionDict[left.curColor + 'CW']()
                     colorFunctionDict[rightrightColor + 'CW']()
                     self.simCube.yellow_Dub()
                     colorFunctionDict[rightrightColor + 'CCW']()
-                    colorFunctionDict[left.curColor + 'CCW']()
-                else: # -3
-                    colorFunctionDict[right.curColor + 'CCW']()
-                    colorFunctionDict[rightrightColor + 'CCW']()
-                    self.simCube.yellow_CW()
-                    colorFunctionDict[rightrightColor + 'Dub']()
-                    print(f"other right: {right}, {rightColor}")
-                    # colorFunctionDict[right.curColor + 'CW']()
+                    colorFunctionDict[leftColor + 'CCW']()
+                else:                                                                       # If cell is CW one space from where it should be
+                    colorFunctionDict[rightColor + 'CCW']()
+                    self.simCube.yellow_CCW()
                     colorFunctionDict[rightColor + 'CW']()
                     colorFunctionDict[rightrightColor + 'CCW']()
+                    self.simCube.yellow_Dub()
+                    colorFunctionDict[rightrightColor + 'CW']()
 
             else:
                 raise Exception(f"ERROR: {cell.curCell} is not a valid placement for white corner cell.")
