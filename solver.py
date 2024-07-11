@@ -375,3 +375,50 @@ class Solver:
             print(self.simCube.instructions)    # TESTING
             print()
             self.simCube.instructions.clear()   # TESTING
+
+    def solveMiddleLayers(self):
+        colorFunctionDict = {               # Maps the color string with the actual move to be dynamically called later
+            'BCW': self.simCube.blue_CW, 
+            'RCW': self.simCube.red_CW, 
+            'GCW': self.simCube.green_CW, 
+            'OCW': self.simCube.orange_CW,
+            'BCCW': self.simCube.blue_CCW, 
+            'RCCW': self.simCube.red_CCW, 
+            'GCCW': self.simCube.green_CCW, 
+            'OCCW': self.simCube.orange_CCW,
+            'BDub': self.simCube.blue_Dub, 
+            'RDub': self.simCube.red_Dub, 
+            'GDub': self.simCube.green_Dub, 
+            'ODub': self.simCube.orange_Dub
+        } 
+
+        # White Corner Cells = 11, 22, 33, 44
+        middle_layer_cells = []
+        for i in range(1, len(self.simCube.cells)):            # Finds the white corner cells
+            cell = self.simCube.cells[i]
+            if cell.actCell in [11, 22, 33, 44]:
+                middle_layer_cells.append(cell)
+            if len(middle_layer_cells) == 4:
+                break
+
+        for cell.curCell in middle_layer_cells:
+            print([cell.curCell for cell in middle_layer_cells]) # TESTING
+            print(f"Solving {cell.actCell} at {cell}")
+
+            if cell.curCell == cell.actCell:             # Already in right place
+                pass
+
+            elif cell.curCell in [17, 20, 31, 42]:      # Side Bottom
+                ...
+            
+            elif cell.curCell in [47, 49, 51, 53]:      # Yellow Side
+                ...
+
+            elif cell.curCell in [15, 26, 29, 40]:      # Wrong Middle Side or Flipped
+                ...
+            
+            else:
+                raise Exception(f"ERROR: {cell.curCell} is not a valid placement for middle layer cell.")
+            print(self.simCube.instructions)    # TESTING
+            print()
+            self.simCube.instructions.clear()   # TESTING
