@@ -376,7 +376,7 @@ class Solver:
             print()
             self.simCube.instructions.clear()   # TESTING
 
-    def solveMiddleLayers(self):
+    def solveMiddleLayer(self):
         colorFunctionDict = {               # Maps the color string with the actual move to be dynamically called later
             'BCW': self.simCube.blue_CW, 
             'RCW': self.simCube.red_CW, 
@@ -392,29 +392,58 @@ class Solver:
             'ODub': self.simCube.orange_Dub
         } 
 
-        # White Corner Cells = 11, 22, 33, 44
+        colorOrder = ['B', 'O', 'G', 'R']
+
+        # White Corner Cells = 15, 26, 29, 40
         middle_layer_cells = []
         for i in range(1, len(self.simCube.cells)):            # Finds the white corner cells
             cell = self.simCube.cells[i]
-            if cell.actCell in [11, 22, 33, 44]:
+            if cell.actCell in [15, 26, 29, 40]:
                 middle_layer_cells.append(cell)
             if len(middle_layer_cells) == 4:
                 break
 
         for cell.curCell in middle_layer_cells:
             print([cell.curCell for cell in middle_layer_cells]) # TESTING
-            print(f"Solving {cell.actCell} at {cell}")
+            print(f"Solving {cell.actCell} at {cell.curCell}")
+
+            adjCell = cell.connections[0]
 
             if cell.curCell == cell.actCell:             # Already in right place
                 pass
 
             elif cell.curCell in [17, 20, 31, 42]:      # Side Bottom
-                ...
+                # Prime the placement
+                if colorOrder[colorOrder.index(cell.color)] == colorOrder[colorOrder.index(cell.curColor)-1]:
+                    self.simCube.yellow_CCW()
+                elif colorOrder[colorOrder.index(cell.color)] == colorOrder[colorOrder.index(cell.curColor)-2]:
+                    self.simCube.yellow_Dub()
+                elif colorOrder[colorOrder.index(cell.color)] == colorOrder[colorOrder.index(cell.curColor)-3]:
+                    self.simCube.yellow_CW()
+                
+                # Actual Moves
+                self.simCube.yellow_CCW()
+                colorFunctionDict[colorOrder[colorOrder.index(cell.color)-2] + 'CW']()
+                colorFunctionDict[colorOrder[colorOrder.index(cell.color)-3] + 'CCW']()
+                colorFunctionDict[colorOrder[colorOrder.index(cell.color)-2] + 'CCW']()
+                colorFunctionDict[cell.color + 'CW']()
+                self.simCube.yellow_CW()
+                colorFunctionDict[cell.color + 'CCW']()
+                self.simCube.yellow_CW()
+                colorFunctionDict[cell.color + 'CCW']()
+                colorFunctionDict[colorOrder[colorOrder.index(cell.color)-2] + 'CW']()
+                colorFunctionDict[colorOrder[colorOrder.index(cell.color)-3] + 'CCW']()
+                colorFunctionDict[cell.color + 'CW']()
+                colorFunctionDict[colorOrder[colorOrder.index(cell.color)-2] + 'CCW']()
+
             
             elif cell.curCell in [47, 49, 51, 53]:      # Yellow Side
                 ...
 
-            elif cell.curCell in [15, 26, 29, 40]:      # Wrong Middle Side or Flipped
+            elif cell.curCell in [15, 26, 29, 40]:      # Wrong Middle Side
+                ...
+
+            elif cell.curCell in [11, 22, 33, 44]:      # Wrong Middle Side Flipped
                 ...
             
             else:

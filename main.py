@@ -36,6 +36,9 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         print("*** Solving White Corners ***")
         cubeSolver.solveWhiteCorners()
         print("*** White Corners End ***")
+        print("*** Solving Middle Layer ***")
+        cubeSolver.solveMiddleLayer()
+        print("*** Middle Layer End ***")
 
         with open('./output/moves.txt', 'w') as f:
             for line in cubeSolver.simCube.instructions:
